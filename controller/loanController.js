@@ -1,4 +1,4 @@
-const { addLoan } = require("../services/loan.service");
+import { addLoan } from "../services/loan.service.js";
 
 const addLoanController = async (req, res) => {
   try {
@@ -16,6 +16,4 @@ const addLoanController = async (req, res) => {
   }
 };
 
-module.exports = {
-  addLoanController,
-};
+export { addLoanController };

@@ -1,12 +1,12 @@
-const {
+import {
   addStudent,
   getStudent,
   getStudentById,
   updateStudentById,
   deleteStudentById,
-} = require("../services/student.service");
-const createToken = require("../utils/createToken.js");
-const { sendEmail, otp } = require("../utils/mail.js");
+} from "../services/student.service.js";
+import createToken from "../utils/createToken.js";
+import { sendEmail, otp } from "../utils/mail.js";
 const addStudentController = async (req, res) => {
   try {
     res.setHeader("Content-Type", "application/json");
@@ -89,7 +89,7 @@ const getStudentByIdController = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   addStudentController,
   getStudentController,
   getStudentByIdController,

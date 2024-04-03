@@ -1,4 +1,4 @@
-const loan = require("../model/loan");
+import loan from "../model/loan.js";
 
 const addLoan = async (body) => {
   try {
@@ -9,4 +9,4 @@ const addLoan = async (body) => {
   }
 };
 
-module.exports = { addLoan };
+export { addLoan };

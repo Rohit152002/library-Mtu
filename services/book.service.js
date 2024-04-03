@@ -1,4 +1,4 @@
-const book = require("../model/book");
+import book from "../model/book.js";
 
 const addBook = async (body) => {
   try {
@@ -45,10 +45,4 @@ const deleteBookById = async (id) => {
     throw err;
   }
 };
-module.exports = {
-  addBook,
-  getBook,
-  getBookById,
-  updateBookById,
-  deleteBookById,
-};
+export { addBook, getBook, getBookById, updateBookById, deleteBookById };

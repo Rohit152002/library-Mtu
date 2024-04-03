@@ -1,15 +1,15 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   addStudentController,
   getStudentController,
   getStudentByIdController,
   updateStudentController,
   verifyStudentController,
   getCurrentUserProfile,
-} = require("../controller/studentController");
+} from "../controller/studentController.js";
 const route = express.Router();
 
-const { authenticate, authorizeAdmin } = require("../middleware/authorize.js");
+import { authenticate, authorizeAdmin } from "../middleware/authorize.js";
 // route.post("/add", addStudentController);
 // route.get("/get", getStudentController);
 // route.get("/:id", getStudentByIdController);
@@ -18,4 +18,4 @@ const { authenticate, authorizeAdmin } = require("../middleware/authorize.js");
 route.route("/").post(addStudentController).get(getStudentController);
 route.route("/profile").get(authenticate, getCurrentUserProfile);
 route.route("/verify").post(authenticate, verifyStudentController);
-module.exports = route;
+export default route;

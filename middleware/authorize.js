@@ -1,7 +1,5 @@
-const jwt = require("jsonwebtoken");
-const Student = require("../model/student");
-
-require("dotenv").config();
+import jwt from "jsonwebtoken";
+import Student from "../model/student.js";
 
 const authenticate = async (req, res, next) => {
   try {
@@ -38,4 +36,4 @@ const authorizeAdmin = (req, res, next) => {
   }
 };
 
-module.exports = { authenticate, authorizeAdmin };
+export { authenticate, authorizeAdmin };

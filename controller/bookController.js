@@ -1,10 +1,10 @@
-const {
+import {
   addBook,
   getBook,
   getBookById,
   updateBookById,
   deleteBookById,
-} = require("../services/book.service");
+} from "../services/book.service.js";
 
 const addBookController = async (req, res) => {
   try {
@@ -67,7 +67,7 @@ const deleteBookByIdController = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   addBookController,
   getBookController,
   getBookByIdController,

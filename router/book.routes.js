@@ -1,11 +1,11 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   addBookController,
   getBookController,
   getBookByIdController,
   updateBookByIdController,
   deleteBookByIdController,
-} = require("../controller/bookController");
+} from "../controller/bookController.js";
 const route = express.Router();
 
 route.post("/add", addBookController);
@@ -14,4 +14,4 @@ route.get("/get/:id", getBookByIdController);
 route.put("/update/:id", updateBookByIdController);
 route.delete("/delete/:id", deleteBookByIdController);
 
-module.exports = route;
+export default route;

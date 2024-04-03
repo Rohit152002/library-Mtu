@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const loanSchema = new mongoose.Schema({
   book_id: {
@@ -25,4 +25,4 @@ const loanSchema = new mongoose.Schema({
 
 const loan = new mongoose.model("loan", loanSchema);
 
-module.exports = loan;
+export default loan;

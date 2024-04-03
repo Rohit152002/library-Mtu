@@ -1,6 +1,5 @@
-const student = require("../model/student");
-const bcrypt = require("bcryptjs");
-const createToken = require("../utils/createToken.js");
+import student from "../model/student.js";
+import bcrypt from "bcryptjs";
 
 const addStudent = async (body) => {
   try {
@@ -65,7 +64,7 @@ const deleteStudentById = async (id) => {
   }
 };
 
-module.exports = {
+export {
   addStudent,
   getStudent,
   getStudentById,

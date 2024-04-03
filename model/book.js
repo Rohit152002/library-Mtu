@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema({
   title: {
@@ -6,17 +6,21 @@ const bookSchema = new mongoose.Schema({
     required: [true, "Enter a titles"],
   },
   branch: {
-    type: String,
-  },
-  publishDate: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Branch",
   },
   copiesOwned: {
     type: Number,
     default: 0,
   },
+  copiesAvailable: {
+    type: Number,
+    default: function () {
+      return this.copiesOwned;
+    },
+  },
 });
 
 const book = mongoose.model("Book", bookSchema);
 
-module.exports = book;
+export default book;

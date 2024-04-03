@@ -1,6 +1,5 @@
-const nodemailer = require("nodemailer");
-const otpGenerator = require("otp-generator");
-require("dotenv").config();
+import nodemailer from "nodemailer";
+import otpGenerator from "otp-generator";
 
 const otp = otpGenerator.generate(4, {
   lowerCaseAlphabets: false,
@@ -50,4 +49,4 @@ const sendEmail = (email) => {
   });
 };
 
-module.exports = { sendEmail, otp };
+export { sendEmail, otp };
