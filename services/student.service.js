@@ -15,6 +15,7 @@ const addStudent = async (body) => {
       fullName: body.fullName,
       registrationNo: body.registrationNo,
       email: body.email,
+      branch: body.branch,
       password: hashedPassword,
     });
     await data.save();

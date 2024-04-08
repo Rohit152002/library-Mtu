@@ -1,11 +1,14 @@
 import nodemailer from "nodemailer";
 import otpGenerator from "otp-generator";
+import dotenv from "dotenv";
+dotenv.config();
 
 const otp = otpGenerator.generate(4, {
   lowerCaseAlphabets: false,
   specialChars: false,
   upperCaseAlphabets: false,
 });
+console.log(process.env.PORT);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -36,7 +39,8 @@ const sendEmail = (email) => {
       subject: "Email Verification",
       html: htmlContent,
     };
-
+    console.log(process.env.EMAIL_PASSWORD + "lsdjflsd");
+    console.log(transporter);
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
         console.error(err.message);

@@ -11,7 +11,8 @@ const studentSchema = new mongoose.Schema({
   },
   branch: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Branch",
+    ref: "Branches",
+    required: true,
   },
   email: {
     type: String,

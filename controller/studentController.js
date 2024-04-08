@@ -6,13 +6,14 @@ import {
   deleteStudentById,
   loginVerification,
 } from "../services/student.service.js";
+import mongoose from "mongoose";
 import createToken from "../utils/createToken.js";
 import { sendEmail, otp } from "../utils/mail.js";
 const addStudentController = async (req, res) => {
   try {
-    res.setHeader("Content-Type", "application/json");
-    const { fullName, registrationNo, email, password } = req.body;
-    if (!(fullName && registrationNo && email && password)) {
+    console.log(req.body);
+    const { fullName, registrationNo, email, password, branch } = req.body;
+    if (!(fullName && registrationNo && email && password && branch)) {
       return res
         .status(400)
         .json({ success: false, message: "Please fill all the fields" });

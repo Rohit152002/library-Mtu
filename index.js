@@ -14,7 +14,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import mongodb from "./config/db.js";
 const app = express();
-
+console.log(process.env.PORT);
 const PORT = process.env.PORT || 3000;
 
 app.use(morgan("dev"));
