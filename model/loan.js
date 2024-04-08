@@ -1,25 +1,33 @@
 import mongoose from "mongoose";
 
 const loanSchema = new mongoose.Schema({
-  book_id: {
-    type: "string",
-    required: true,
-  },
   student_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Student",
   },
+  book_title: {
+    type: "string",
+    required: true,
+  },
+  book_author: {
+    type: "string",
+    required: true,
+  },
   loanDate: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   returnDate: {
     type: Date,
     default: function () {
-      let returnDate = new Date(this.loanDate);
-      returnDate.setDate(returnDate.getDate() + 15);
-      return returnDate;
+      const fifteenDaysLater = new Date(this.pre_book);
+      fifteenDaysLater.setDate(fifteenDaysLater.getDate() + 15);
+      return fifteenDaysLater.toISOString();
     },
+  },
+  remark: {
+    type: String,
+    default: "Unsubmitted",
   },
 });
 

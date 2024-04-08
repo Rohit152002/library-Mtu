@@ -4,6 +4,7 @@ import {
   getStudentById,
   updateStudentById,
   deleteStudentById,
+  loginVerification,
 } from "../services/student.service.js";
 import createToken from "../utils/createToken.js";
 import { sendEmail, otp } from "../utils/mail.js";
@@ -37,6 +38,17 @@ const verifyStudentController = async (req, res) => {
         .status(400)
         .json({ success: false, message: "OTP Not Verified" });
     }
+  } catch (error) {
+    return res.status(500).json({ success: false, err: error.message });
+  }
+};
+
+const loginStudentController = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const student = await loginVerification(email, password);
+    createToken(res, student._id);
+    return res.status(200).json({ success: student });
   } catch (error) {
     return res.status(500).json({ success: false, err: error.message });
   }
@@ -95,5 +107,6 @@ export {
   getStudentByIdController,
   updateStudentController,
   verifyStudentController,
+  loginStudentController,
   getCurrentUserProfile,
 };

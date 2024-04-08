@@ -64,10 +64,27 @@ const deleteStudentById = async (id) => {
   }
 };
 
+const loginVerification = async (email, password) => {
+  try {
+    const user = await student.findOne({ email });
+    if (!user) {
+      throw new Error("User not found");
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      throw new Error("Invalid password");
+    }
+    return user;
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   addStudent,
   getStudent,
   getStudentById,
   updateStudentById,
   deleteStudentById,
+  loginVerification,
 };

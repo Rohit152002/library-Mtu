@@ -9,6 +9,10 @@ const bookSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Branch",
   },
+  image_url: {
+    type: String,
+    required: true,
+  },
   copiesOwned: {
     type: Number,
     default: 0,
