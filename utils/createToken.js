@@ -8,7 +8,7 @@ const generateToken = (res, studentId) => {
   res.cookie("jwt", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", // Set to true only in production
-    sameSite: "None",
+    sameSite: "strict",
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 };
