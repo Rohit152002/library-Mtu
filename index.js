@@ -18,16 +18,16 @@ console.log(process.env.PORT);
 const PORT = process.env.PORT || 3000;
 
 app.use(morgan("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: "*",
     credentials: true,
   })
 );
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
 app.use("/api/loan", loanRoute);
 app.use("/api/book", bookRoute);
 app.use("/api/student", studentRoute);
