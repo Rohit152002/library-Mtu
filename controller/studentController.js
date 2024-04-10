@@ -57,6 +57,7 @@ const loginStudentController = async (req, res) => {
 
 const getCurrentUserProfile = async (req, res) => {
   try {
+    console.log(req.student);
     const data = await getStudentById(req.student._id);
     return res.status(200).json({ success: true, data });
   } catch (error) {

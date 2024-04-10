@@ -17,17 +17,17 @@ const app = express();
 console.log(process.env.PORT);
 const PORT = process.env.PORT || 3000;
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-  })
-);
 app.use("/api/loan", loanRoute);
 app.use("/api/book", bookRoute);
 app.use("/api/student", studentRoute);

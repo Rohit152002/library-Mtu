@@ -39,8 +39,6 @@ const sendEmail = (email) => {
       subject: "Email Verification",
       html: htmlContent,
     };
-    console.log(process.env.EMAIL_PASSWORD + "lsdjflsd");
-    console.log(transporter);
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
         console.error(err.message);

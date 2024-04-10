@@ -10,10 +10,11 @@ import {
 import { authenticate } from "../middleware/authorize.js";
 const router = express.Router();
 
-router.post("/", addPreBookController);
+router.post("/", authenticate, addPreBookController);
+// router.get("/all", getAllPrebookController);
 router.get("/:id", getPreBookByStudentIdController);
 router.get("/", authenticate, getPreBookforStudentController);
-router.post("/taken", authenticate, takenPrebookController);
+router.post("/taken/:id", authenticate, takenPrebookController);
 router.delete("/:id", authenticate, deletePreBookController);
 
 export default router;
