@@ -3,10 +3,8 @@ import Student from "../model/student.js";
 
 const authenticate = async (req, res, next) => {
   try {
-    let token;
-
     // Read JWT from the 'jwt' cookie
-    token = req.cookies.jwt;
+    const token = req.cookies.jwt;
 
     if (token) {
       try {
@@ -14,6 +12,7 @@ const authenticate = async (req, res, next) => {
         req.student = await Student.findById(decoded.studentId).select(
           "-password"
         );
+        console.log(req.student);
         next();
       } catch (error) {
         res.status(401);
@@ -29,7 +28,7 @@ const authenticate = async (req, res, next) => {
 };
 
 const authorizeAdmin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
+  if (req.user?.isAdmin) {
     next();
   } else {
     res.status(401).send("Not authorized as an admin.");

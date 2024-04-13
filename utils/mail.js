@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import otpGenerator from "otp-generator";
 import dotenv from "dotenv";
+import Otp from "../model/otp.js";
 dotenv.config();
 
 const otp = otpGenerator.generate(4, {
@@ -8,7 +9,6 @@ const otp = otpGenerator.generate(4, {
   specialChars: false,
   upperCaseAlphabets: false,
 });
-console.log(process.env.PORT);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -39,12 +39,13 @@ const sendEmail = (email) => {
       subject: "Email Verification",
       html: htmlContent,
     };
-    transporter.sendMail(mailOptions, (err, info) => {
+    transporter.sendMail(mailOptions, async (err, info) => {
       if (err) {
         console.error(err.message);
         reject(new Error(`Error sending email: ${err.message}`));
       } else {
-        console.log("Email sent: " + info.response);
+        await Otp.create({ email, otp });
+        console.log(`Email sent: ${info.response}`);
         resolve(info.response);
       }
     });

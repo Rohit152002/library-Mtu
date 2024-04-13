@@ -5,6 +5,10 @@ const loanSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Student",
   },
+  branch_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Branch",
+  },
   book_title: {
     type: "string",
     required: true,
@@ -24,6 +28,9 @@ const loanSchema = new mongoose.Schema({
       fifteenDaysLater.setDate(fifteenDaysLater.getDate() + 15);
       return fifteenDaysLater.toISOString();
     },
+  },
+  submitDate: {
+    type: Date,
   },
   remark: {
     type: String,

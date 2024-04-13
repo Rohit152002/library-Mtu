@@ -63,10 +63,10 @@ export const takenPrebookController = async (req, res) => {
     const bookId = new mongoose.Types.ObjectId(id);
     const result = await PreBook.updateOne(
       {
-        student_id: req.student._id, // Filter by student's _id
-        "books._id": bookId, // Filter by the book's _id within the books array
+        student_id: req.student._id,
+        "books._id": bookId,
       },
-      { $set: { "books.$.remark": "Taken" } }, // Set the new value for the remark field
+      { $set: { "books.$.remark": "Taken" } },
       { replace: true }
     );
 

@@ -7,11 +7,12 @@ import {
   loginVerification,
 } from "../services/student.service.js";
 import mongoose from "mongoose";
+import Otp from "../model/otp.js";
+import Student from "../model/student.js";
 import createToken from "../utils/createToken.js";
 import { sendEmail, otp } from "../utils/mail.js";
 const addStudentController = async (req, res) => {
   try {
-    console.log(req.body);
     const { fullName, registrationNo, email, password, branch } = req.body;
     if (!(fullName && registrationNo && email && password && branch)) {
       return res
@@ -29,16 +30,18 @@ const addStudentController = async (req, res) => {
 
 const verifyStudentController = async (req, res) => {
   try {
-    // console.log(otp, typeof otp);
-    // return res.send("helo");
-    if (req.body.otp === otp) {
-      return res.status(200).json({ success: true, message: "OTP Verified" });
-    } else {
-      await deleteStudentById(req.student._id);
-      return res
-        .status(400)
-        .json({ success: false, message: "OTP Not Verified" });
+    const student = await getStudentById(req.student._id);
+    const email = student.email;
+    const { otp } = req.body;
+
+    const verified = await Otp.findOne({ otp: otp, email: email });
+    if (verified) {
+      return res.status(200).json({ success: verified });
     }
+    await deleteStudentById(req.student._id);
+    return res
+      .status(400)
+      .json({ success: false, message: "OTP Not Verified" });
   } catch (error) {
     return res.status(500).json({ success: false, err: error.message });
   }
