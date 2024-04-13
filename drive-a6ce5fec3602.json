@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "mtulibrarymanagementsystem",
+  "private_key_id": "a6ce5fec3602b86247c30b3fb44e30ca7b98d3ca",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDZzA3GGFoZUWH6\nwWUA2IJXdGkz5a3S4PppTYueFZ3RAepWxGUItpUfyntak3jilzEugDJqz7bGqj4S\nygcrbiDVgd9yIyiXEcdwmGzYW+JqDELLFqZmSEGuVVgvQfxzltvMgRIuYoal4qPV\nRFluvqXGlq4ib4AjGYALuwv9m5V0eH0z4bwRJS/ybT3iatOy6Etpp0ford4IvNJx\nfSVtl2lI6rkX/0ukG3iEtkgwRb494SJ1vm0cwSnwLNnMot23nbWV84q6Fi293I7u\n82BLYQBPfPTG+hrZ37hzxdaBx+XqgVPgOefpEcnXtetk88Hjy3phbwsJ7XHR+tub\nhIbMYZgDAgMBAAECggEAJglWgHmhRpmpcGcVEiw9uzNH6jna/SCwavKRhxbEXIum\nlueus3JbodU1bNCjhIMeIj5eT7wd8h0qQRLKZMHTdyY61U6hmJyQxa/BFpoZdSbW\nBWzbu7Iz0lPyVjKCeddnZJRIDhTD6jWmIilRKx+diQyotbfeW4LpE2NjyTNCSzgr\nMXF4bUFykai/lsfg2MMTbW77WBxInsGHyIUoeV7iMS5XFwK8kO5+K180nb9KMozF\nKukCoMbkWnTgvMNxmvactl+v5aLUepL+gFTym4YzV2pIEKgmzk/htp6bYtiGKp6d\nGR+FFJp74DingPwCrwhyPkw5zRD7w+vKqfpPdlvsTQKBgQD05v5nLt8/Vcn7+WNj\n5lJ4DMCFh5VqefkekwaiVBGaqTPpdlSyCmYEgpPykRBB/oIFc6bZdjSdKX3I4nhq\nw+v223IA/HQwLPqKp6htogvhZdh55pLEUklYToih1MqM7dO+fplCO+WJWcyVQO4C\ncUJC6xJAeg3AdP7CUGvZvIb93wKBgQDjqp+4LTGfnnnUFpou0f0T+waoz9eazKlR\n7GBeeSqmSKZ9BdcemeuC+YxMOpf6pXRj+WYJ9CaCY9yiXQEj7o5mxWl/sNhUBvgo\ngWoKCRQDiHSo+d/rK2MQvjinazjMaHUuOzLX+g66ZdrwORSeOG9mK4vFSb9PMnmq\nHOA2UthiXQKBgAS8DoEKK/C6hNwlNyGwSznc7T/nniDf2MwZhZBP1cNKsCE8U2jZ\nwJ0ntRqEaW8NL5BRaxFbMqszKSZgEnnl7cLo/Sw9tTVVOUbC9QOhlV83K9c3ePDo\nslhNtGCEj6Hn2yccpXPdWpOsM8NS7QcJD4Hhr4mlkmx9FovFKECeX3G7AoGAVzU0\nmUg2if4ajLNbvDOTzeOKWX/EBvf+o/L3tziSrb+Ghr2F+aLcI/+TTl/jd4+JVgJi\no81yMuAt08Pse+cVhSh5kQAc3ZMN2/Y2uEFh+Th7934/18V23SMAcKER0LryqBLl\nFvYiTiRWCU7UJwdXJLvpflkRfzTGhfMpr6VsXcECgYBIeMDaZmkp+/HeD5QZTqRQ\nyaieH6mzBpPoG+DrYVNyhW7DxtL73YDy4FmuM6CX33U/L7JGl+IrKVhraG8Kt3lb\nj1Vwi4LxQn5nA397mvXLCvyDwkRgHu6wJLG5Z+NeUirplCQWr9mtNQrQw8G/l8gK\njq3uZBPmSGmDqKK1/zyFFQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "mtulibrary@mtulibrarymanagementsystem.iam.gserviceaccount.com",
+  "client_id": "103175127284792240688",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mtulibrary%40mtulibrarymanagementsystem.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
