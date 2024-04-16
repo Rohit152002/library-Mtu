@@ -1,16 +1,17 @@
-import student from "../model/student.js";
+import Student from "../model/student.js";
 import bcrypt from "bcryptjs";
 
 const addStudent = async (body) => {
   console.log("Student is ADDED");
+
   const email = body.email;
-  const userExists = await student.findOne({ email });
+  const userExists = await Student.findOne({ email });
   if (userExists) {
     throw new Error("Student already exists");
   }
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(body.password, salt);
-  const data = new student({
+  const data = new Student({
     fullName: body.fullName,
     registrationNo: body.registrationNo,
     email: body.email,
@@ -23,31 +24,37 @@ const addStudent = async (body) => {
 
 const getStudent = async () => {
   console.log("GET Student");
-  const data = await student.find();
+  const data = await Student.find().populate("branch");
   return data;
 };
 
 const getStudentById = async (id) => {
-  console.log(id);
-  console.log("Get Student ID");
-  const data = await student.findById(id);
-  return data;
+  try {
+    console.log(id);
+    console.log("Get Student ID");
+    const data = await Student.findById(id)
+      .populate("book_list.loan_id")
+      .populate({ path: "branch" });
+    return data;
+  } catch (err) {
+    return err;
+  }
 };
 
 const updateStudentById = async (id, body) => {
   console.log("Update Student ID");
-  const data = await student.findByIdAndUpdate(id, body);
+  const data = await Student.findByIdAndUpdate(id, body);
   return data;
 };
 
 const deleteStudentById = async (id) => {
   console.log("Delete Student ID");
-  const data = await student.findByIdAndDelete(id);
+  const data = await Student.findByIdAndDelete(id);
   return data;
 };
 
 const loginVerification = async (email, password) => {
-  const user = await student.findOne({ email });
+  const user = await Student.findOne({ email });
   if (!user) {
     throw new Error("User not found");
   }

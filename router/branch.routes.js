@@ -10,7 +10,6 @@ const router = express.Router();
 
 router.post("/add", addBranchController);
 router.get("/", getBranchesController);
-
 router
   .route("/:id")
   .put(updateBranchesController)

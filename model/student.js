@@ -11,7 +11,7 @@ const studentSchema = new mongoose.Schema({
   },
   branch: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Branches",
+    ref: "Branch",
     required: true,
   },
   email: {
@@ -22,6 +22,18 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  book_list: [
+    {
+      loan_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Loans",
+      },
+    },
+  ],
 });
 
 const Student = mongoose.model("Student", studentSchema);

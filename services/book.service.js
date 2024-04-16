@@ -1,26 +1,27 @@
-import book from "../model/book.js";
+import Book from "../model/book.js";
 
 const addBook = async (body) => {
   try {
     console.log("Book is ADDED");
-    const data = await book.create(body);
+
+    const data = await Book.create(body);
     return data;
   } catch (err) {
-    throw err;
+    return err;
   }
 };
 
 const getBook = async () => {
   try {
-    const data = await book.find();
+    const data = await Book.find().populate("branch");
     return data;
   } catch (err) {
-    throw err;
+    return err;
   }
 };
 const getBookById = async (id) => {
   try {
-    const data = await book.findById(id);
+    const data = await Book.findById(id);
     return data;
   } catch (err) {
     throw err;
@@ -29,7 +30,7 @@ const getBookById = async (id) => {
 
 const updateBookById = async (id, body) => {
   try {
-    const data = await book.findByIdAndUpdate(id, body);
+    const data = await Book.findByIdAndUpdate(id, body);
     console.log("run update");
     return data;
   } catch (err) {
@@ -39,7 +40,7 @@ const updateBookById = async (id, body) => {
 
 const deleteBookById = async (id) => {
   try {
-    const data = await book.findByIdAndDelete(id);
+    const data = await Book.findByIdAndDelete(id);
     return data;
   } catch (err) {
     throw err;

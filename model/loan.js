@@ -24,7 +24,7 @@ const loanSchema = new mongoose.Schema({
   returnDate: {
     type: Date,
     default: function () {
-      const fifteenDaysLater = new Date(this.pre_book);
+      const fifteenDaysLater = new Date(this.loanDate);
       fifteenDaysLater.setDate(fifteenDaysLater.getDate() + 15);
       return fifteenDaysLater.toISOString();
     },
@@ -34,10 +34,11 @@ const loanSchema = new mongoose.Schema({
   },
   remark: {
     type: String,
+    enum: ["Unsubmitted", "Submitted"],
     default: "Unsubmitted",
   },
 });
 
-const loan = new mongoose.model("loan", loanSchema);
+const Loan = new mongoose.model("Loans", loanSchema);
 
-export default loan;
+export default Loan;

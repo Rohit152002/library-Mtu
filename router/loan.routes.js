@@ -1,7 +1,16 @@
 import express from "express";
-import { addLoanController } from "../controller/loanController.js";
+import {
+  addLoanController,
+  submitController,
+  getAllLoanController,
+  getLoanById,
+} from "../controller/loanController.js";
 const route = express.Router();
 
-route.post("/add", addLoanController);
+import { authenticate } from "../middleware/authorize.js";
 
+route.post("/add", addLoanController);
+route.post("/submit", submitController);
+route.get("/", getAllLoanController);
+route.get("/:id", authenticate, getLoanById);
 export default route;

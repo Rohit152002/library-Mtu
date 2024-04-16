@@ -72,8 +72,6 @@ export const takenPrebookController = async (req, res) => {
 
     return res.status(200).json({ result });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "failed", error: error.message, error: error.stack });
+    return res.status(500).json({ message: "failed", error: error.message });
   }
 };

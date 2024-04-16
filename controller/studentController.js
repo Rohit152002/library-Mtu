@@ -36,6 +36,8 @@ const verifyStudentController = async (req, res) => {
 
     const verified = await Otp.findOne({ otp: otp, email: email });
     if (verified) {
+      student.verify = true;
+      await student.save();
       return res.status(200).json({ success: verified });
     }
     await deleteStudentById(req.student._id);
