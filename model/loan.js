@@ -34,7 +34,7 @@ const loanSchema = new mongoose.Schema({
   },
   remark: {
     type: String,
-    enum: ["Unsubmitted", "Submitted"],
+    enum: ["Unsubmitted", "Submitted", "Due Fine"],
     default: "Unsubmitted",
   },
 });

@@ -24,7 +24,7 @@ const getBookById = async (id) => {
     const data = await Book.findById(id);
     return data;
   } catch (err) {
-    throw err;
+    return err;
   }
 };
 
@@ -34,7 +34,7 @@ const updateBookById = async (id, body) => {
     console.log("run update");
     return data;
   } catch (err) {
-    throw err;
+    return err;
   }
 };
 
@@ -43,7 +43,7 @@ const deleteBookById = async (id) => {
     const data = await Book.findByIdAndDelete(id);
     return data;
   } catch (err) {
-    throw err;
+    return err;
   }
 };
 export { addBook, getBook, getBookById, updateBookById, deleteBookById };

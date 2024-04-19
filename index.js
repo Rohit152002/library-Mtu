@@ -9,18 +9,18 @@ import studentRoute from "./router/student.routes.js";
 import branchRoute from "./router/branch.routes.js";
 import prebookRoute from "./router/pre_book.routes.js";
 import uploadRoute from "./router/upload.routes.js";
+import RenewRoute from "./router/renew.routes.js";
 import dotenv from "dotenv";
 
 dotenv.config();
 import mongodb from "./config/db.js";
 const app = express();
-console.log(process.env.PORT);
 const PORT = process.env.PORT || 3000;
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
-  }),
+  })
 );
 app.use(morgan("dev"));
 app.use(express.json());
@@ -33,6 +33,7 @@ app.use("/api/student", studentRoute);
 app.use("/api/branch", branchRoute);
 app.use("/api/prebook", prebookRoute);
 app.use("/api/upload", uploadRoute);
+app.use("/api/renew", RenewRoute);
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(`${__dirname}/uploads`)));
@@ -44,6 +45,5 @@ app.get("/", (req, res) => {
 
 mongodb();
 app.listen(PORT, () => {
-  console.log("Server Running");
   console.log(`Server is running on port ${PORT}`);
 });

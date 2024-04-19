@@ -12,7 +12,6 @@ const authenticate = async (req, res, next) => {
         req.student = await Student.findById(decoded.studentId).select(
           "-password"
         );
-        console.log(req.student);
         next();
       } catch (error) {
         res.status(401);
