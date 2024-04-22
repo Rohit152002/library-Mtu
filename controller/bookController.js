@@ -5,15 +5,22 @@ import {
   updateBookById,
   deleteBookById,
 } from "../services/book.service.js";
-
+import Book from "../model/book.js";
+import mongoose from "mongoose";
 const addBookController = async (req, res) => {
   try {
     res.setHeader("Content-Type", "application/json");
-    const { title, branch, publishDate } = req.body;
-    if (!(title && branch && publishDate)) {
+    const { title, author, branch, publishDate } = req.body;
+    if (!(title && author && branch && publishDate)) {
       return res
         .status(400)
         .json({ success: false, message: "Please fill all the fields" });
+    }
+    const bookExist = await Book.findOne({ title, author });
+    if (bookExist) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Book already exist" });
     }
     const book = await addBook(req.body);
     return res.status(201).json({ success: true, book });
@@ -23,14 +30,42 @@ const addBookController = async (req, res) => {
 };
 const getBookController = async (req, res) => {
   try {
-    res.setHeader("Content-Type", "application/json");
-    const book = await getBook();
+    const { skip, limit } = req.query;
+    const limitCount = +limit || 0;
+    const skipCount = +skip || 0;
+    const book = await getBook(limitCount, skipCount);
     return res.status(200).json({ success: true, book });
   } catch (err) {
     return res.status(500).json({ success: false, err: err.message });
   }
 };
-
+const getBookByBranchId = async (req, res) => {
+  try {
+    const branch = req.params.id;
+    const book = await Book.find({
+      branch: new mongoose.Types.ObjectId(branch),
+    });
+    return res.status(200).json({ success: true, book });
+  } catch (error) {
+    return res.status(500).json({ success: false, err: error.message });
+  }
+};
+const searchBook = async (req, res) => {
+  try {
+    const books = await Book.find({
+      title: {
+        $regex: req.query.book_title,
+        $options: "i",
+      },
+    });
+    if (!books || books.length === 0) {
+      return res.status(404).json({ success: false, message: "No book found" });
+    }
+    return res.status(200).json({ success: true, books });
+  } catch (error) {
+    return res.status(500).json({ success: false, err: err.message });
+  }
+};
 const getBookByIdController = async (req, res) => {
   try {
     res.setHeader("Content-Type", "application/json");
@@ -73,4 +108,6 @@ export {
   getBookByIdController,
   updateBookByIdController,
   deleteBookByIdController,
+  searchBook,
+  getBookByBranchId,
 };

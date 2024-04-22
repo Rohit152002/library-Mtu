@@ -5,6 +5,10 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: [true, "Enter a titles"],
   },
+  author: {
+    type: String,
+    required: [true, "Enter an author"],
+  },
   branch: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Branch",

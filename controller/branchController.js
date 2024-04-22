@@ -22,13 +22,13 @@ export const addBranchController = async (req, res) => {
 
 export const getBranchesController = async (req, res) => {
   try {
-    const data = await getBranches();
+    const { id } = req.params;
+    const data = await getBranches(id);
     return res.status(200).json({ success: true, data });
   } catch (error) {
     return res.status(401).json({ message: false, error: error.message });
   }
 };
-
 export const getBranchByIdController = async (req, res) => {
   try {
     const { id } = req.params;

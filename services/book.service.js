@@ -11,9 +11,9 @@ const addBook = async (body) => {
   }
 };
 
-const getBook = async () => {
+const getBook = async (limit, skip) => {
   try {
-    const data = await Book.find().populate("branch");
+    const data = await Book.find().skip(skip).limit(limit).populate("branch");
     return data;
   } catch (err) {
     return err;

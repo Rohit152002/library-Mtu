@@ -6,7 +6,6 @@ import {
   deleteStudentById,
   loginVerification,
 } from "../services/student.service.js";
-import mongoose from "mongoose";
 import Otp from "../model/otp.js";
 import Student from "../model/student.js";
 import createToken from "../utils/createToken.js";
@@ -60,11 +59,23 @@ const loginStudentController = async (req, res) => {
   }
 };
 
+const searchByRegistration = async (req, res) => {
+  try {
+    const { registrationNo } = req.query;
+    console.log(registrationNo);
+    const student = await Student.findOne({ registrationNo });
+    return res.status(200).json({ success: true, student });
+  } catch (error) {
+    return res.status(500).json({ success: false, err: error.message });
+  }
+};
+
 const getCurrentUserProfile = async (req, res) => {
   try {
-    console.log(req.student);
-    const data = await getStudentById(req.student._id);
-    return res.status(200).json({ success: true, data });
+    const [data, filterData] = await getStudentById(req.student._id);
+    return res
+      .status(200)
+      .json({ success: true, student: data, unsubmitted: filterData });
   } catch (error) {
     return res.status(500).json({ success: false, err: error.message });
   }
@@ -101,8 +112,10 @@ const getStudentByIdController = async (req, res) => {
   try {
     res.setHeader("Content-Type", "application/json");
     const { id } = req.params;
-    const student = await getStudentById(id);
-    return res.status(200).json({ success: true, student });
+    const [data, filterData] = await getStudentById(id);
+    return res
+      .status(200)
+      .json({ success: true, student: data, unsubmitted: filterData });
   } catch (err) {
     return res.status(500).json({ success: false, err: err.message });
   }
@@ -116,4 +129,5 @@ export {
   verifyStudentController,
   loginStudentController,
   getCurrentUserProfile,
+  searchByRegistration,
 };

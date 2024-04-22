@@ -9,12 +9,16 @@ const loanSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Branch",
   },
+  book_id: {
+    type: String,
+    required: true,
+  },
   book_title: {
-    type: "string",
+    type: String,
     required: true,
   },
   book_author: {
-    type: "string",
+    type: String,
     required: true,
   },
   loanDate: {
@@ -31,6 +35,7 @@ const loanSchema = new mongoose.Schema({
   },
   submitDate: {
     type: Date,
+    default: null,
   },
   remark: {
     type: String,

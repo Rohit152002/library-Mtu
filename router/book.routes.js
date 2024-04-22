@@ -5,12 +5,16 @@ import {
   getBookByIdController,
   updateBookByIdController,
   deleteBookByIdController,
+  getBookByBranchId,
+  searchBook,
 } from "../controller/bookController.js";
 const route = express.Router();
 
 route.post("/add", addBookController);
+route.get("/search", searchBook);
 route.get("/get", getBookController);
 route.get("/get/:id", getBookByIdController);
+route.get("/get/branch/:id", getBookByBranchId);
 route.put("/update/:id", updateBookByIdController);
 route.delete("/delete/:id", deleteBookByIdController);
 

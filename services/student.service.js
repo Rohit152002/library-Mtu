@@ -2,8 +2,6 @@ import Student from "../model/student.js";
 import bcrypt from "bcryptjs";
 
 const addStudent = async (body) => {
-  console.log("Student is ADDED");
-
   const email = body.email;
   const userExists = await Student.findOne({ email });
   if (userExists) {
@@ -23,32 +21,30 @@ const addStudent = async (body) => {
 };
 
 const getStudent = async () => {
-  console.log("GET Student");
   const data = await Student.find().populate("branch");
   return data;
 };
 
 const getStudentById = async (id) => {
   try {
-    console.log(id);
-    console.log("Get Student ID");
     const data = await Student.findById(id)
-      .populate("book_list.loan_id")
+      .populate({ path: "book_list.loan_id" })
       .populate({ path: "branch" });
-    return data;
+    const filterData = data.book_list.filter((item) => {
+      return item.loan_id?.remark === "Unsubmitted";
+    });
+    return [data, filterData];
   } catch (err) {
     return err;
   }
 };
 
 const updateStudentById = async (id, body) => {
-  console.log("Update Student ID");
   const data = await Student.findByIdAndUpdate(id, body);
   return data;
 };
 
 const deleteStudentById = async (id) => {
-  console.log("Delete Student ID");
   const data = await Student.findByIdAndDelete(id);
   return data;
 };
