@@ -21,5 +21,5 @@ route
   .get(getStudentByIdController)
   .put(updateStudentController);
 route.get("/search", searchByRegistration);
-route.delete("/:id", deleteBystudentId);
+// route.delete("/:id", deleteBystudentId);
 export default route;
