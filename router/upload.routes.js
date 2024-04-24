@@ -49,4 +49,4 @@ const uploadFile = async (fileObject) => {
     });
   return data.id;
 };
-export default app;
+export { uploadFile };

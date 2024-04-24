@@ -6,10 +6,14 @@ import {
   deleteBookById,
 } from "../services/book.service.js";
 import Book from "../model/book.js";
+import { uploadFile } from "../router/upload.routes.js";
 import mongoose from "mongoose";
 const addBookController = async (req, res) => {
   try {
     res.setHeader("Content-Type", "application/json");
+    console.log(req.body);
+    const { files } = req;
+    console.log(files);
     const { title, author, branch, publishDate } = req.body;
     if (!(title && author && branch && publishDate)) {
       return res
@@ -22,8 +26,16 @@ const addBookController = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Book already exist" });
     }
-    const book = await addBook(req.body);
-    return res.status(201).json({ success: true, book });
+    const fileName = await uploadFile(files[0]);
+    const book = await Book.create({
+      title,
+      author,
+      branch,
+      publishDate,
+      copiesOwned: req.body.copiesOwned,
+      image_url: fileName,
+    });
+    return res.status(201).json({ success: true, created: book });
   } catch (err) {
     return res.status(500).json({ success: false, err: err.message });
   }

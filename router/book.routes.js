@@ -8,9 +8,12 @@ import {
   getBookByBranchId,
   searchBook,
 } from "../controller/bookController.js";
+import multer from "multer";
+
+const upload = multer();
 const route = express.Router();
 
-route.post("/add", addBookController);
+route.post("/add", upload.any(), addBookController);
 route.get("/search", searchBook);
 route.get("/get", getBookController);
 route.get("/get/:id", getBookByIdController);

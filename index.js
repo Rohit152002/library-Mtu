@@ -9,7 +9,7 @@ import bookRoute from "./router/book.routes.js";
 import studentRoute from "./router/student.routes.js";
 import branchRoute from "./router/branch.routes.js";
 import prebookRoute from "./router/pre_book.routes.js";
-import uploadRoute from "./router/upload.routes.js";
+// import uploadRoute from "./router/upload.routes.js";
 import RenewRoute from "./router/renew.routes.js";
 import dotenv from "dotenv";
 
@@ -33,7 +33,7 @@ app.use("/api/book", bookRoute);
 app.use("/api/student", studentRoute);
 app.use("/api/branch", branchRoute);
 app.use("/api/prebook", prebookRoute);
-app.use("/api/upload", uploadRoute);
+// app.use("/api/upload", uploadRoute);
 app.use("/api/renew", RenewRoute);
 
 cron.schedule("0 0 * * *", () => {
