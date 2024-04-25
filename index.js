@@ -11,15 +11,20 @@ import branchRoute from "./router/branch.routes.js";
 import prebookRoute from "./router/pre_book.routes.js";
 // import uploadRoute from "./router/upload.routes.js";
 import RenewRoute from "./router/renew.routes.js";
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 
-dotenv.config();
+// dotenv.config();
 import mongodb from "./config/db.js";
 const app = express();
+console.log(process.argv);
 const PORT = process.env.PORT || 3000;
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    origin: [
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+      "http://localhost:5174",
+    ],
     credentials: true,
   })
 );
@@ -30,8 +35,8 @@ app.use(cookieParser());
 
 app.use("/api/loan", loanRoute); //http:localhost:
 app.use("/api/book", bookRoute);
-app.use("/api/student", studentRoute);
 app.use("/api/branch", branchRoute);
+app.use("/api/student", studentRoute);
 app.use("/api/prebook", prebookRoute);
 // app.use("/api/upload", uploadRoute);
 app.use("/api/renew", RenewRoute);
