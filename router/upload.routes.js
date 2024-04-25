@@ -14,8 +14,9 @@ const SCOPES = ["https://www.googleapis.com/auth/drive"];
 const auth = new google.auth.GoogleAuth({
   // keyFile: KEYFILEPATH,
   scopes: SCOPES,
-  projectId: process.env.project_id,
+  // projectId: process.env.project_id,
   credentials: {
+    project_id: process.env.project,
     private_key: process.env.private_key,
     private_key_id: process.env.private_key_id,
     type: process.env.type,
