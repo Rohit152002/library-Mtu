@@ -17,7 +17,7 @@ const auth = new google.auth.GoogleAuth({
   // projectId: process.env.project_id,
   credentials: {
     project_id: process.env.project,
-    private_key: process.env.private_key,
+    private_key: process.env.private_key.split(String.raw`\n`).join("\n"),
     private_key_id: process.env.private_key_id,
     type: process.env.type,
     client_email: process.env.client_email,
