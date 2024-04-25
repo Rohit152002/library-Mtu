@@ -28,6 +28,7 @@ app.use(
     credentials: true,
   })
 );
+console.log(process.env);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
