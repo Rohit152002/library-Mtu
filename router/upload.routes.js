@@ -43,6 +43,7 @@ app.post("/", upload.any(), async (req, res) => {
 //<img src="https://drive.google.com/thumbnail?id=15gwHKykXRnfDgvNScAW0p1PPJu75ZlXN" alt="None" />
 
 const uploadFile = async (fileObject) => {
+  console.log(process.env.private_key);
   const bufferStream = new stream.PassThrough();
   bufferStream.end(fileObject.buffer);
   const { data } = await google
