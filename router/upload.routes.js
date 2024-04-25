@@ -17,9 +17,7 @@ const auth = new google.auth.GoogleAuth({
   // projectId: process.env.project_id,
   credentials: {
     project_id: process.env.project,
-    private_key: process.env.private_key
-      .replace(/\\n/g, "\n")
-      .replace(/"/g, ""),
+    private_key: process.env.private_key.replace(/"/g, ""),
     private_key_id: process.env.private_key_id,
     type: process.env.type,
     client_email: process.env.client_email,
@@ -45,7 +43,7 @@ app.post("/", upload.any(), async (req, res) => {
 //<img src="https://drive.google.com/thumbnail?id=15gwHKykXRnfDgvNScAW0p1PPJu75ZlXN" alt="None" />
 
 const uploadFile = async (fileObject) => {
-  console.log(process.env.private_key.replace(/\\n/g, "\n").replace(/"/g, ""));
+  console.log(process.env.private_key.replace(/"/g, ""));
   const bufferStream = new stream.PassThrough();
   bufferStream.end(fileObject.buffer);
   const { data } = await google
