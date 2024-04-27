@@ -29,7 +29,7 @@ export const getPreBookByStudentId = async (id) => {
     const preBook = await PreBook.findOne({ student_id: id });
     return preBook;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -45,6 +45,6 @@ export const deletePreBookByStudentId = async (id, bookId) => {
     await preBook.save();
     return preBook;
   } catch (error) {
-    throw error;
+    return error;
   }
 };

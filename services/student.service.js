@@ -50,7 +50,9 @@ const deleteStudentById = async (id) => {
 };
 
 const loginVerification = async (email, password) => {
-  const user = await Student.findOne({ email });
+  const user = await Student.findOne({ email }).populate({
+    path: "book_list.loan_id",
+  });
   if (!user) {
     throw new Error("User not found");
   }

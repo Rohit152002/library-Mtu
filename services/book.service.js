@@ -2,8 +2,6 @@ import Book from "../model/book.js";
 
 const addBook = async (body) => {
   try {
-    console.log("Book is ADDED");
-
     const data = await Book.create(body);
     return data;
   } catch (err) {

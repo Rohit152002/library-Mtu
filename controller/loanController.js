@@ -13,10 +13,28 @@ const addLoanController = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Please fill all the fields" });
     }
-    const { book_title, book_author } = req.body;
-    const student = await Student.findById(req.body.student_id);
-    const book = await Book.findOne({ title: book_title, author: book_author });
-    if (book) {
+    //const { book_title, book_author } = req.body;
+    const student = await Student.findById(req.body.student_id).populate({
+      path: "book_list.loan_id",
+    });
+    // console.log(student.book_list.map((item) => item));
+    const remarkArray = student.book_list.map((item) => item.loan_id.remark);
+    console.log(remarkArray);
+    const unsubmittedBooksCount = student.book_list.reduce((count, book) => {
+      if (book.loan_id.remark === "Unsubmitted") {
+        return count + 1;
+      }
+      return count;
+    }, 0);
+
+    if (unsubmittedBooksCount >= 4) {
+      return res.status(400).json({
+        success: false,
+        message: "You can't submit more than 4 books at a time",
+      });
+    }
+    // const book = await Book.findOne({ title: book_title, author: book_author });
+    /*if (book) {
       if (book.copiesAvailable > 0) {
         book.copiesAvailable = book.copiesAvailable - 1;
         await book.save();
@@ -25,12 +43,9 @@ const addLoanController = async (req, res) => {
           .status(400)
           .json({ success: false, message: "Book not available" });
       }
-    }
+    }*/
     const data = await addLoan(loan);
-    if (data) {
-      student.book_list.push({ loan_id: data._id });
-      await student.save();
-    }
+
     return res.status(200).json({ success: true, data });
   } catch (err) {
     return res.status(500).json({ success: false, err: err.message });

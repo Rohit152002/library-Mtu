@@ -16,7 +16,7 @@ import RenewRoute from "./router/renew.routes.js";
 // dotenv.config();
 import mongodb from "./config/db.js";
 const app = express();
-console.log(process.argv);
+
 const PORT = process.env.PORT || 3000;
 app.use(
   cors({
@@ -28,7 +28,7 @@ app.use(
     credentials: true,
   })
 );
-console.log(process.env);
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
