@@ -36,6 +36,7 @@ const verifyStudentController = async (req, res) => {
     if (verified) {
       data.verify = true;
       await data.save();
+      await Otp.deleteOne({ email: email });
       return res.status(200).json({ success: verified });
     }
     await deleteStudentById(req.student._id);
