@@ -9,6 +9,7 @@ import {
   searchBook,
 } from "../controller/bookController.js";
 import multer from "multer";
+import { authenticate } from "../middleware/authorize.js";
 
 const upload = multer();
 const route = express.Router();

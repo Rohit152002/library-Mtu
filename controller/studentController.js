@@ -29,14 +29,13 @@ const addStudentController = async (req, res) => {
 
 const verifyStudentController = async (req, res) => {
   try {
-    const student = await getStudentById(req.student._id);
-    const email = student.email;
+    const [data] = await getStudentById(req.student._id);
+    const email = data.email;
     const { otp } = req.body;
-
     const verified = await Otp.findOne({ otp: otp, email: email });
     if (verified) {
-      student.verify = true;
-      await student.save();
+      data.verify = true;
+      await data.save();
       return res.status(200).json({ success: verified });
     }
     await deleteStudentById(req.student._id);
