@@ -18,8 +18,8 @@ const addLoanController = async (req, res) => {
       path: "book_list.loan_id",
     });
     // console.log(student.book_list.map((item) => item));
-    const remarkArray = student.book_list.map((item) => item.loan_id.remark);
-    console.log(remarkArray);
+    // const remarkArray = student.book_list.map((item) => item.loan_id.remark);
+    // console.log(remarkArray);
     const unsubmittedBooksCount = student.book_list.reduce((count, book) => {
       if (book.loan_id.remark === "Unsubmitted") {
         return count + 1;
@@ -30,7 +30,7 @@ const addLoanController = async (req, res) => {
     if (unsubmittedBooksCount >= 4) {
       return res.status(400).json({
         success: false,
-        message: "You can't submit more than 4 books at a time",
+        message: "4 books are already unsubmitted",
       });
     }
     // const book = await Book.findOne({ title: book_title, author: book_author });

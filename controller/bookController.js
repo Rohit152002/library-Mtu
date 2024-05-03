@@ -69,6 +69,10 @@ const searchBook = async (req, res) => {
         $regex: req.query.book_title,
         $options: "i",
       },
+      author: {
+        $regex: req.query.author_name,
+        $options: "i",
+      },
     });
     if (!books || books.length === 0) {
       return res.status(404).json({ success: false, message: "No book found" });

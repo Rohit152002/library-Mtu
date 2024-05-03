@@ -32,15 +32,15 @@ const auth = new google.auth.GoogleAuth({
   },
 });
 
-app.post("/", upload.any(), async (req, res) => {
-  try {
-    const { files } = req;
-    const fileName = await uploadFile(files[0]);
-    return res.status(200).json({ message: "File Uploaded", id: fileName });
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-});
+// app.post("/", upload.any(), async (req, res) => {
+//   try {
+//     const { files } = req;
+//     const fileName = await uploadFile(files[0]);
+//     return res.status(200).json({ message: "File Uploaded", id: fileName });
+//   } catch (error) {
+//     return res.status(500).json({ message: error.message });
+//   }
+// });
 
 //<img src="https://drive.google.com/thumbnail?id=15gwHKykXRnfDgvNScAW0p1PPJu75ZlXN" alt="None" />
 
