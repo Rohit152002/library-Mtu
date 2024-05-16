@@ -15,6 +15,7 @@ const addStudent = async (body) => {
     email: body.email,
     branch: body.branch,
     password: hashedPassword,
+    role: body.role,
   });
   await data.save();
   return data;
