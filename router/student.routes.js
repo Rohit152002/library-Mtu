@@ -8,10 +8,12 @@ import {
   getCurrentUserProfile,
   loginStudentController,
   searchByRegistration,
+  deleteStudentById,
+  logoutCurrentUser,
 } from "../controller/studentController.js";
 const route = express.Router();
 
-import { authenticate, authorizeAdmin } from "../middleware/authorize.js";
+import { authenticate } from "../middleware/authorize.js";
 route.post("/login", loginStudentController);
 route.route("/").post(addStudentController).get(getStudentController);
 route.route("/profile").get(authenticate, getCurrentUserProfile);
@@ -21,5 +23,7 @@ route
   .get(getStudentByIdController)
   .put(updateStudentController);
 route.get("/search", searchByRegistration);
-// route.delete("/:id", deleteBystudentId);
+route.delete("/:id", deleteStudentById);
+route.post("/logout", logoutCurrentUser);
+
 export default route;

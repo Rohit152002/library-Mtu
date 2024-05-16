@@ -9,7 +9,7 @@ import {
 import Otp from "../model/otp.js";
 import Student from "../model/student.js";
 import createToken from "../utils/createToken.js";
-import { sendEmail, otp } from "../utils/mail.js";
+import { sendEmail } from "../utils/mail.js";
 const addStudentController = async (req, res) => {
   try {
     const { fullName, registrationNo, email, password, branch } = req.body;
@@ -51,6 +51,7 @@ const verifyStudentController = async (req, res) => {
 const loginStudentController = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(email, password);
     const student = await loginVerification(email, password);
     createToken(res, student._id);
     return res.status(200).json({ success: student });
@@ -62,7 +63,6 @@ const loginStudentController = async (req, res) => {
 const searchByRegistration = async (req, res) => {
   try {
     const { registrationNo } = req.query;
-    console.log(registrationNo);
     const student = await Student.findOne({ registrationNo });
     return res.status(200).json({ success: true, student });
   } catch (error) {
@@ -121,6 +121,15 @@ const getStudentByIdController = async (req, res) => {
   }
 };
 
+const logoutCurrentUser = async (req, res) => {
+  res.cookie("jwt", "", {
+    httyOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(200).json({ message: "Logged out successfully" });
+};
+
 export {
   addStudentController,
   getStudentController,
@@ -130,4 +139,6 @@ export {
   loginStudentController,
   getCurrentUserProfile,
   searchByRegistration,
+  deleteStudentById,
+  logoutCurrentUser,
 };

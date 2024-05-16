@@ -13,9 +13,17 @@ const requestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  details: {
+    type: String,
+  },
+  dateOfRequest: {
+    type: Date,
+    default: Date.now,
+  },
   remark: {
-    type: boolean,
-    default: false,
+    type: String,
+    enum: ["Added", "Request"],
+    default: "Request",
   },
 });
 

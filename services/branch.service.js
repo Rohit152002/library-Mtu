@@ -5,7 +5,7 @@ export const addBranch = async (name, shortName) => {
     const data = await Branch.create({ name, shortName });
     return data;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -14,7 +14,7 @@ export const getBranches = async () => {
     const data = await Branch.find();
     return data;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -23,7 +23,7 @@ export const getBranchById = async (id) => {
     const data = await Branch.findById(id);
     return data;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -38,7 +38,7 @@ export const updateBranch = async (id, name, shortName) => {
     );
     return data;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -47,6 +47,6 @@ export const deleteBranch = async (id) => {
     const data = await Branch.findByIdAndDelete(id);
     return data;
   } catch (error) {
-    throw error;
+    return error;
   }
 };

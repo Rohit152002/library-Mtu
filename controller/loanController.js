@@ -8,6 +8,7 @@ const addLoanController = async (req, res) => {
   try {
     res.setHeader("Content-Type", "application/json");
     const loan = req.body;
+    console.log(`${req.body}`);
     if (!loan) {
       return res
         .status(400)

@@ -7,11 +7,19 @@ export const AddRenewRequest = async (req, res) => {
     const { loan_id } = req.body;
     const student_id = req.student._id;
     const objectId = new mongoose.Types.ObjectId(loan_id);
+    const alreadyRenew = await RenewRequest.findOne({ loan_id });
+    if (alreadyRenew) {
+      return res
+        .status(404)
+        .json({ success: false, message: "already renewed" });
+    }
     const data = await RenewRequest.create({
       loan_id: objectId,
       student_id,
     });
-    return res.status(200).json({ success: true, data });
+    return res
+      .status(200)
+      .json({ success: true, data, message: "created renew" });
   } catch (error) {
     return res.status(500).json({ success: false, error: error.message });
   }
@@ -21,9 +29,7 @@ export const getRenewRequestsStudent = async (req, res) => {
   try {
     const data = await RenewRequest.find({
       student_id: req.student._id,
-    }).populate({
-      path: "student_id",
-    });
+    }).populate("loan_id");
     return res.status(200).json({ success: true, data });
   } catch (error) {
     return res.status(500).json({ success: false, error: error.message });
