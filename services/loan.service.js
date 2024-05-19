@@ -1,9 +1,19 @@
 import Loan from "../model/loan.js";
-import Student from "../model/student.js";
-const addLoan = async (body) => {
+const addLoan = async (body, student) => {
   try {
+    const todayDate = new Date();
+    const returnDate = new Date(todayDate);
+    let dateAdded;
+    if (student.role === "Student") {
+      dateAdded = 15;
+    } else {
+      dateAdded = 30;
+    }
+    returnDate.setDate(returnDate.getDate() + dateAdded);
+    console.log(returnDate);
     if (body.loans.length === 1) {
       const loan = body.loans[0]; // Assuming there's only one loan document in body.loans
+      console.log(student.role);
 
       const data = await Loan.create({
         book_id: loan.book_id,
@@ -11,9 +21,10 @@ const addLoan = async (body) => {
         book_author: loan.book_author,
         student_id: body.student_id,
         branch_id: body.branch_id,
+        returnDate: returnDate.toISOString(), // Convert back to ISO string
       });
 
-      const student = await Student.findById(body.student_id);
+      // // const student = await Student.findById(body.student_id);
       student.book_list.push({ loan_id: data._id });
       await student.save();
       return "created one doc";
@@ -25,8 +36,9 @@ const addLoan = async (body) => {
         book_author: loan.book_author,
         student_id: body.student_id,
         branch_id: body.branch_id,
+        returnDate: returnDate.toISOString(), // Convert back to ISO string
       });
-      const student = await Student.findById(body.student_id);
+      // const student = await Student.findById(body.student_id);
       student.book_list.push({ loan_id: data._id });
       await student.save();
     }

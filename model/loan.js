@@ -27,11 +27,6 @@ const loanSchema = new mongoose.Schema({
   },
   returnDate: {
     type: Date,
-    default: function () {
-      const fifteenDaysLater = new Date(this.loanDate);
-      fifteenDaysLater.setDate(fifteenDaysLater.getDate() + 15);
-      return fifteenDaysLater.toISOString();
-    },
   },
   submitDate: {
     type: Date,
@@ -41,6 +36,10 @@ const loanSchema = new mongoose.Schema({
     type: String,
     enum: ["Unsubmitted", "Submitted", "Due Fine"],
     default: "Unsubmitted",
+  },
+  fine: {
+    type: Number,
+    default: 0,
   },
 });
 

@@ -7,6 +7,35 @@ export const AddRenewRequest = async (req, res) => {
     const { loan_id } = req.body;
     const student_id = req.student._id;
     const objectId = new mongoose.Types.ObjectId(loan_id);
+    const loanData = await Loan.findById(objectId);
+    if (!loanData) {
+      return res
+        .status(404)
+        .json({ success: false, message: "loan not found" });
+    }
+
+    // const today = new Date();
+    // const todayDateOnly = new Date(
+    //   today.getFullYear(),
+    //   today.getMonth(),
+    //   today.getDate()
+    // );
+
+    // const submitDate = new Date(loanData.submitDate);
+    // const submitDateOnly = new Date(
+    //   submitDate.getFullYear(),
+    //   submitDate.getMonth(),
+    //   submitDate.getDate()
+    // );
+
+    // if (todayDateOnly.getTime() !== submitDateOnly.getTime()) {
+    //   return res
+    //     .status(400) // Status 400 is more appropriate for bad requests than 404
+    //     .json({ success: false, message: "can renew only on submit date" });
+    // }
+
+    // Proceed with the renewal process here
+
     const alreadyRenew = await RenewRequest.findOne({ loan_id });
     if (alreadyRenew) {
       return res
@@ -38,7 +67,9 @@ export const getRenewRequestsStudent = async (req, res) => {
 
 export const allRenewRequestStudent = async (req, res) => {
   try {
-    const data = await RenewRequest.find();
+    const data = await RenewRequest.find({ remark: "request" })
+      .populate("loan_id")
+      .populate("student_id");
     return res.status(200).json({ success: true, data });
   } catch (error) {
     return res.status(404).json({ success: false, error: error.message });
@@ -60,7 +91,7 @@ export const acceptRenewRequest = async (req, res) => {
     const loan_id = data.loan_id;
     const loan = await Loan.findById(loan_id);
     if (loan) {
-      const previousReturnDate = new Date(loan.returnDate);
+      const previousReturnDate = new Date();
       const newReturnDate = new Date(previousReturnDate);
       newReturnDate.setDate(newReturnDate.getDate() + 15);
       const dateUpdate = await Loan.findByIdAndUpdate(

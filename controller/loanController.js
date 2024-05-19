@@ -8,19 +8,22 @@ const addLoanController = async (req, res) => {
   try {
     res.setHeader("Content-Type", "application/json");
     const loan = req.body;
-    console.log(`${req.body}`);
+    // console.log(loan.loans.map((loan) => loan.book_title));
+    for (const item of loan.loans) {
+      console.log(item.book_title);
+    }
+    // console.log(`${req.body}`);
+    // return res.json({ message: "hello" });
     if (!loan) {
       return res
         .status(400)
         .json({ success: false, message: "Please fill all the fields" });
     }
-    //const { book_title, book_author } = req.body;
+
     const student = await Student.findById(req.body.student_id).populate({
       path: "book_list.loan_id",
     });
-    // console.log(student.book_list.map((item) => item));
-    // const remarkArray = student.book_list.map((item) => item.loan_id.remark);
-    // console.log(remarkArray);
+
     const unsubmittedBooksCount = student.book_list.reduce((count, book) => {
       if (book.loan_id.remark === "Unsubmitted") {
         return count + 1;
@@ -34,20 +37,26 @@ const addLoanController = async (req, res) => {
         message: "4 books are already unsubmitted",
       });
     }
-    // const book = await Book.findOne({ title: book_title, author: book_author });
-    /*if (book) {
-      if (book.copiesAvailable > 0) {
-        book.copiesAvailable = book.copiesAvailable - 1;
-        await book.save();
-      } else {
-        return res
-          .status(400)
-          .json({ success: false, message: "Book not available" });
+    for (const item of loan.loans) {
+      console.log(item.book_title);
+      const book = await Book.findOne({
+        title: item.book_title,
+        author: item.book_author,
+      });
+      if (book) {
+        if (book.copiesAvailable > 0) {
+          book.copiesAvailable = book.copiesAvailable - 1;
+          await book.save();
+          console.log(book);
+        }
       }
-    }*/
-    const data = await addLoan(loan);
-
-    return res.status(200).json({ success: true, data });
+      // return res
+      //   .status(400)
+      //   .json({ success: false, message: "Book not available" });
+      // }
+    }
+    const data = await addLoan(loan, student);
+    return res.status(200).json({ success: data });
   } catch (err) {
     return res.status(500).json({ success: false, err: err.message });
   }
@@ -56,6 +65,14 @@ const addLoanController = async (req, res) => {
 const submitController = async (req, res) => {
   try {
     const { loan_id } = req.body;
+    const loanBooks = await Loan.findById(loan_id);
+
+    const increment = await Book.findOne({
+      title: loanBooks.book_title,
+      author: loanBooks.book_author,
+    });
+    increment.copiesAvailable = increment.copiesAvailable + 1;
+    await increment.save();
     const updateValue = await Loan.findByIdAndUpdate(
       loan_id,
       {
@@ -105,9 +122,17 @@ const checkOverDueLoans = async (req, res) => {
     });
 
     for (const loan of overdueloans) {
+      const today = new Date();
+      const returnDate = new Date(loan.returnDate);
+      const diffTime = Math.abs(today - returnDate);
+      const overdueDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      const finePerDay = 10;
+      const totalFine = overdueDays * finePerDay;
       await Loan.findByIdAndUpdate(loan._id, {
         $set: {
           remark: "Due Fine",
+          fine: totalFine,
         },
       });
     }

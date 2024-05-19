@@ -11,6 +11,6 @@ import { authenticate } from "../middleware/authorize.js";
 
 router.post("/", authenticate, addRequestBook);
 router.get("/", getRequestBook);
-router.put("/:id", authenticate, addedRequestBook);
+router.put("/:id", addedRequestBook);
 router.delete("/:id", authenticate, deleteRequestBook);
 export default router;

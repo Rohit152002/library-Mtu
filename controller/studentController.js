@@ -64,7 +64,10 @@ const searchByRegistration = async (req, res) => {
   try {
     const { registrationNo } = req.query;
     const student = await Student.findOne({ registrationNo });
-    return res.status(200).json({ success: true, student });
+    const [data, filterData] = await getStudentById(student._id);
+    return res
+      .status(200)
+      .json({ success: true, student: data, unsubmitted: filterData });
   } catch (error) {
     return res.status(500).json({ success: false, err: error.message });
   }
