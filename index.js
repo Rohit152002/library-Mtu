@@ -19,7 +19,6 @@ import { checkOverDueLoans } from "./controller/loanController.js";
 import mongodb from "./config/db.js";
 const app = express();
 
-const PORT = process.env.PORT || 3000;
 app.use(
   cors({
     origin: [
@@ -30,6 +29,7 @@ app.use(
     credentials: true,
   })
 );
+const PORT = process.env.PORT || 3000;
 
 app.use(morgan("dev"));
 app.use(express.json());
