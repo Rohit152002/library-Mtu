@@ -15,7 +15,10 @@ import prebookRoute from "./router/pre_book.routes.js";
 import RenewRoute from "./router/renew.routes.js";
 import RequestRoute from "./router/request.routes.js";
 import { checkOverDueLoans } from "./controller/loanController.js";
-
+const allowedOrigins = [
+  "https://librarymanagmentweb.vercel.app",
+  "http://localhost:5173",
+];
 import mongodb from "./config/db.js";
 const app = express();
 
@@ -31,8 +34,7 @@ const app = express();
 // );
 app.use(
   cors({
-    origin: "https://librarymanagmentweb.vercel.app",
-
+    origin: allowedOrigins,
     credentials: true,
   })
 );
