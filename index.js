@@ -34,7 +34,8 @@ const app = express();
 // );
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: [" https://librarymanagementweb.vercel.app",
+    "http://localhost:5173"],
     credentials: true,
   })
 );
@@ -69,3 +70,5 @@ mongodb();
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+export { allowedOrigins };

@@ -10,10 +10,7 @@ import Otp from "../model/otp.js";
 import Student from "../model/student.js";
 import createToken from "../utils/createToken.js";
 import { sendEmail } from "../utils/mail.js";
-const allowedOrigins = [
-  "https://librarymanagementweb.vercel.app",
-  // "http://localhost:5173",
-];
+import { allowedOrigins } from "../index.js";
 const addStudentController = async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
@@ -61,7 +58,7 @@ const loginStudentController = async (req, res) => {
     console.log(email, password);
     const student = await loginVerification(email, password);
     createToken(res, student._id);
-    return res.status(200).json({ success: student });
+    return res.status(200).json({ success: true, err: student });
   } catch (error) {
     return res.status(500).json({ success: false, err: error.message });
   }

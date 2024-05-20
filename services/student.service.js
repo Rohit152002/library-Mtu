@@ -67,7 +67,7 @@ const loginVerification = async (email, password) => {
   }
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    return new Error("Invalid password");
+    throw new Error("Invalid password");
   }
   return user;
 };

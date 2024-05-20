@@ -3,10 +3,7 @@ import Loan from "../model/loan.js";
 import Student from "../model/student.js";
 import Book from "../model/book.js";
 import mongoose from "mongoose";
-const allowedOrigins = [
-  "https://librarymanagementweb.vercel.app",
-  // "http://localhost:5173",
-];
+import { allowedOrigins } from "../index.js";
 const addLoanController = async (req, res) => {
   try {
     res.setHeader("Content-Type", "application/json");

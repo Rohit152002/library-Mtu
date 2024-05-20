@@ -5,10 +5,7 @@ import {
 } from "../services/pre_book.service.js";
 import PreBook from "../model/preBook.js";
 import mongoose from "mongoose";
-const allowedOrigins = [
-  "https://librarymanagementweb.vercel.app",
-  // "http://localhost:5173",
-];
+import { allowedOrigins } from "../index.js";
 export const addPreBookController = async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));

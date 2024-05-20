@@ -1,10 +1,7 @@
 import RenewRequest from "../model/renewRequest.js";
 import Loan from "../model/loan.js";
 import mongoose from "mongoose";
-const allowedOrigins = [
-  "https://librarymanagementweb.vercel.app",
-  // "http://localhost:5173",
-];
+import { allowedOrigins } from "../index.js";
 export const AddRenewRequest = async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));

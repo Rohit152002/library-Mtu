@@ -5,10 +5,8 @@ import {
   updateBranch,
   deleteBranch,
 } from "../services/branch.service.js";
-const allowedOrigins = [
-  "https://librarymanagementweb.vercel.app",
-  // "http://localhost:5173",
-];
+
+import { allowedOrigins } from "../index.js";
 
 export const addBranchController = async (req, res) => {
   try {
