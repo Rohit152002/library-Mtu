@@ -17,8 +17,10 @@ import RequestRoute from "./router/request.routes.js";
 import { checkOverDueLoans } from "./controller/loanController.js";
 const allowedOrigins = [
   "https://librarymanagementweb.vercel.app",
-  // "http://localhost:5173",
+  "http://localhost:5173",
 ];
+
+
 import mongodb from "./config/db.js";
 const app = express();
 
@@ -32,6 +34,13 @@ const app = express();
 //     credentials: true,
 //   })
 // );
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  next();
+});
 app.use(
   cors({
     origin: [" https://librarymanagementweb.vercel.app",
