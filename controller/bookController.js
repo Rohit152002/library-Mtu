@@ -11,7 +11,7 @@ import mongoose from "mongoose";
 import { allowedOrigins } from "../index.js";
 const addBookController = async (req, res) => {
   try {
-
+    res.header('Access-Control-Allow-Origin', allowedOrigins.join(', '));
     res.setHeader("Content-Type", "application/json");
     console.log(req.body);
     const { files } = req;
@@ -44,7 +44,7 @@ const addBookController = async (req, res) => {
 };
 const getBookController = async (req, res) => {
   try {
-
+    res.header('Access-Control-Allow-Origin', allowedOrigins.join(', '));
     const { skip, limit } = req.query;
     const limitCount = +limit || 0;
     const skipCount = +skip || 0;
@@ -56,7 +56,7 @@ const getBookController = async (req, res) => {
 };
 const getBookByBranchId = async (req, res) => {
   try {
-
+    res.header('Access-Control-Allow-Origin', allowedOrigins.join(', '));
     const branch = req.params.id;
     const book = await Book.find({
       branch: new mongoose.Types.ObjectId(branch),
@@ -68,7 +68,7 @@ const getBookByBranchId = async (req, res) => {
 };
 const searchBook = async (req, res) => {
   try {
-
+    res.header('Access-Control-Allow-Origin', allowedOrigins.join(', '));
     const books = await Book.find({
       title: {
         $regex: req.query.book_title,
@@ -89,7 +89,7 @@ const searchBook = async (req, res) => {
 };
 const getBookByIdController = async (req, res) => {
   try {
-
+    res.header('Access-Control-Allow-Origin', allowedOrigins.join(', '));
     res.setHeader("Content-Type", "application/json");
     const book = await getBookById(req.params.id);
     return res.status(200).json({ success: true, book });
@@ -100,7 +100,7 @@ const getBookByIdController = async (req, res) => {
 
 const updateBookByIdController = async (req, res) => {
   try {
-
+    res.header('Access-Control-Allow-Origin', allowedOrigins.join(', '));
     res.setHeader("Content-Type", "application/json");
     const { title, branch, publishDate } = req.body;
     if (!(title && branch && publishDate)) {
@@ -117,7 +117,7 @@ const updateBookByIdController = async (req, res) => {
 
 const deleteBookByIdController = async (req, res) => {
   try {
-
+    res.header('Access-Control-Allow-Origin', allowedOrigins.join(', '));
     res.setHeader("Content-Type", "application/json");
     const book = await deleteBookById(req.params.id);
     return res.status(200).json({ success: true, book });
