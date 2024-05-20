@@ -30,8 +30,15 @@ const getStudentById = async (id) => {
   try {
     const data = await Student.findById(id)
       .populate({ path: "book_list.loan_id" })
-      .populate({ path: "branch" })
-      .sort({ loanDate: -1 });
+      .populate({ path: "branch" });
+
+    if (data?.book_list) {
+      data.book_list.sort(
+        (a, b) => new Date(b.loan_id.loanDate) - new Date(a.loan_id.loanDate)
+      );
+
+      console.log(JSON.stringify(data));
+    }
     const filterData = data.book_list.filter((item) => {
       return item.loan_id?.remark === "Unsubmitted";
     });
