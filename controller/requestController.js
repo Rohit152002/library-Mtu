@@ -1,6 +1,9 @@
 import requestBook from "../model/requestBook.js";
 import Book from "../model/book.js";
-import { allowedOrigins } from "../index.js";
+const allowedOrigins = [
+  "https://librarymanagementweb.vercel.app",
+  // "http://localhost:5173",
+];
 export const addRequestBook = async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
