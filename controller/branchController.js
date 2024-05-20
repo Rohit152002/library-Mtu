@@ -6,7 +6,7 @@ import {
   deleteBranch,
 } from "../services/branch.service.js";
 const allowedOrigins = [
-  "https://librarymanagmentweb.vercel.app",
+  "https://librarymanagementweb.vercel.app",
   // "http://localhost:5173",
 ];
 

@@ -2,7 +2,7 @@ import RenewRequest from "../model/renewRequest.js";
 import Loan from "../model/loan.js";
 import mongoose from "mongoose";
 const allowedOrigins = [
-  "https://librarymanagmentweb.vercel.app",
+  "https://librarymanagementweb.vercel.app",
   // "http://localhost:5173",
 ];
 export const AddRenewRequest = async (req, res) => {

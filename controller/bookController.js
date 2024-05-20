@@ -9,7 +9,7 @@ import Book from "../model/book.js";
 import { uploadFile } from "../router/upload.routes.js";
 import mongoose from "mongoose";
 const allowedOrigins = [
-  "https://librarymanagmentweb.vercel.app",
+  "https://librarymanagementweb.vercel.app",
   // "http://localhost:5173",
 ];
 const addBookController = async (req, res) => {
