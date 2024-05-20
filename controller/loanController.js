@@ -5,7 +5,7 @@ import Book from "../model/book.js";
 import mongoose from "mongoose";
 const allowedOrigins = [
   "https://librarymanagmentweb.vercel.app",
-  "http://localhost:5173",
+  // "http://localhost:5173",
 ];
 const addLoanController = async (req, res) => {
   try {

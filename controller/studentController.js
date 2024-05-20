@@ -12,7 +12,7 @@ import createToken from "../utils/createToken.js";
 import { sendEmail } from "../utils/mail.js";
 const allowedOrigins = [
   "https://librarymanagmentweb.vercel.app",
-  "http://localhost:5173",
+  // "http://localhost:5173",
 ];
 const addStudentController = async (req, res) => {
   try {

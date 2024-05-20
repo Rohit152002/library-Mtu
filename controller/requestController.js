@@ -2,7 +2,7 @@ import requestBook from "../model/requestBook.js";
 import Book from "../model/book.js";
 const allowedOrigins = [
   "https://librarymanagmentweb.vercel.app",
-  "http://localhost:5173",
+  // "http://localhost:5173",
 ];
 export const addRequestBook = async (req, res) => {
   try {

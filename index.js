@@ -17,7 +17,7 @@ import RequestRoute from "./router/request.routes.js";
 import { checkOverDueLoans } from "./controller/loanController.js";
 const allowedOrigins = [
   "https://librarymanagmentweb.vercel.app",
-  "http://localhost:5173",
+  // "http://localhost:5173",
 ];
 import mongodb from "./config/db.js";
 const app = express();

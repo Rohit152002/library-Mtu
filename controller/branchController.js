@@ -7,7 +7,7 @@ import {
 } from "../services/branch.service.js";
 const allowedOrigins = [
   "https://librarymanagmentweb.vercel.app",
-  "http://localhost:5173",
+  // "http://localhost:5173",
 ];
 
 export const addBranchController = async (req, res) => {
