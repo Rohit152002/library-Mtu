@@ -32,7 +32,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "https://librarymanagmentweb-nc9bnpvql-konthoujam-lanthoibas-projects.vercel.app/",
+      "https://librarymanagmentweb.vercel.app/",
       "http://localhost:5173",
     ],
     credentials: true,
