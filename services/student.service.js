@@ -30,7 +30,8 @@ const getStudentById = async (id) => {
   try {
     const data = await Student.findById(id)
       .populate({ path: "book_list.loan_id" })
-      .populate({ path: "branch" });
+      .populate({ path: "branch" })
+      .sort({ loanDate: -1 });
     const filterData = data.book_list.filter((item) => {
       return item.loan_id?.remark === "Unsubmitted";
     });

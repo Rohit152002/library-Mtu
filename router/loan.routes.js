@@ -5,6 +5,7 @@ import {
   getAllLoanController,
   getLoanById,
   searchLoanBooks,
+  renewLoanBooks,
 } from "../controller/loanController.js";
 const route = express.Router();
 
@@ -15,4 +16,5 @@ route.post("/submit", submitController);
 route.get("/", getAllLoanController);
 route.get("/:id", authenticate, getLoanById);
 route.get("/search/:id", searchLoanBooks);
+route.put("/renew/:id", renewLoanBooks);
 export default route;

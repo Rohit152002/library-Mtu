@@ -39,21 +39,23 @@ const addLoanController = async (req, res) => {
     }
     for (const item of loan.loans) {
       console.log(item.book_title);
+      console.log(item.book_author);
       const book = await Book.findOne({
         title: item.book_title,
         author: item.book_author,
       });
+      console.log(book);
       if (book) {
         if (book.copiesAvailable > 0) {
           book.copiesAvailable = book.copiesAvailable - 1;
           await book.save();
           console.log(book);
         }
+      } else {
+        return res
+          .status(400)
+          .json({ success: false, message: "Book not available" });
       }
-      // return res
-      //   .status(400)
-      //   .json({ success: false, message: "Book not available" });
-      // }
     }
     const data = await addLoan(loan, student);
     return res.status(200).json({ success: data });
@@ -96,7 +98,9 @@ const submitController = async (req, res) => {
 
 const getAllLoanController = async (req, res) => {
   try {
-    const loans = await Loan.find().populate("student_id");
+    const loans = await Loan.find()
+      .populate("student_id")
+      .sort({ loanDate: -1 });
     return res.status(200).json({ success: true, loans });
   } catch (err) {
     return res.status(500).json({ success: false, err: err.message });
@@ -155,6 +159,31 @@ const searchLoanBooks = async (req, res) => {
     return res.status(500).json({ success: false, err: err.message });
   }
 };
+
+const renewLoanBooks = async (req, res) => {
+  try {
+    const loan_id = req.params.id;
+    const loan = await Loan.findById(loan_id);
+    if (loan) {
+      const previousReturnDate = new Date();
+      const newReturnDate = new Date(previousReturnDate);
+      newReturnDate.setDate(newReturnDate.getDate() + 15);
+      const dateUpdate = await Loan.findByIdAndUpdate(
+        loan_id,
+        {
+          $set: {
+            returnDate: newReturnDate.toISOString(), // Convert back to ISO string
+          },
+        },
+        { new: true }
+      );
+      console.log(dateUpdate);
+      return res.status(200).json({ success: true, dateUpdate });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
 export {
   addLoanController,
   submitController,
@@ -162,4 +191,5 @@ export {
   getLoanById,
   searchLoanBooks,
   checkOverDueLoans,
+  renewLoanBooks,
 };
