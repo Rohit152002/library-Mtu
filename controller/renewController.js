@@ -3,11 +3,11 @@ import Loan from "../model/loan.js";
 import mongoose from "mongoose";
 const allowedOrigins = [
   "https://librarymanagementweb.vercel.app",
-  // "http://localhost:5173",
+  "http://localhost:5173",
 ];
 export const AddRenewRequest = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { loan_id } = req.body;
     const student_id = req.student._id;
     const objectId = new mongoose.Types.ObjectId(loan_id);
@@ -60,7 +60,7 @@ export const AddRenewRequest = async (req, res) => {
 
 export const getRenewRequestsStudent = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const data = await RenewRequest.find({
       student_id: req.student._id,
     }).populate("loan_id");
@@ -72,7 +72,7 @@ export const getRenewRequestsStudent = async (req, res) => {
 
 export const allRenewRequestStudent = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const data = await RenewRequest.find({ remark: "request" })
       .populate("loan_id")
       .populate("student_id");
@@ -84,7 +84,7 @@ export const allRenewRequestStudent = async (req, res) => {
 
 export const acceptRenewRequest = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { id } = req.params;
     const data = await RenewRequest.findByIdAndUpdate(
       id,
@@ -122,7 +122,7 @@ export const acceptRenewRequest = async (req, res) => {
 
 export const rejectRenewRequest = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { id } = req.params;
     const data = await RenewRequest.findByIdAndUpdate(
       id,

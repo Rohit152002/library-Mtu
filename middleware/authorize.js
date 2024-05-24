@@ -3,9 +3,9 @@ import Student from "../model/student.js";
 
 const authenticate = async (req, res, next) => {
   try {
-    // Read JWT from the 'jwt' cookie
-    const token = req.cookies.jwt;
-    console.log(token);
+    const header=req.headers['authorization']
+    const token = header.split(" ")[1];
+    console.log(token + "hello");
     if (token) {
       try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);

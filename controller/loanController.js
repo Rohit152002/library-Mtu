@@ -5,12 +5,12 @@ import Book from "../model/book.js";
 import mongoose from "mongoose";
 const allowedOrigins = [
   "https://librarymanagementweb.vercel.app",
-  // "http://localhost:5173",
+  "http://localhost:5173",
 ];
 const addLoanController = async (req, res) => {
   try {
     res.setHeader("Content-Type", "application/json");
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
 
     const loan = req.body;
     // console.log(loan.loans.map((loan) => loan.book_title));
@@ -71,7 +71,7 @@ const addLoanController = async (req, res) => {
 
 const submitController = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { loan_id } = req.body;
     const loanBooks = await Loan.findById(loan_id);
 
@@ -104,7 +104,7 @@ const submitController = async (req, res) => {
 
 const getAllLoanController = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const loans = await Loan.find()
       .populate("student_id")
       .sort({ loanDate: -1 });
@@ -116,7 +116,7 @@ const getAllLoanController = async (req, res) => {
 
 const getLoanById = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { id } = req.params;
     const data = await Loan.findById(id).populate("student_id");
     return res.status(200).json({ succes: true, data });
@@ -126,7 +126,7 @@ const getLoanById = async (req, res) => {
 };
 const checkOverDueLoans = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const overdueloans = await Loan.find({
       returnDate: {
         $lt: new Date(),
@@ -156,7 +156,7 @@ const checkOverDueLoans = async (req, res) => {
 
 const searchLoanBooks = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const branch = req.params.id;
     const book = await Loan.find({
       branch_id: new mongoose.Types.ObjectId(branch),
@@ -172,7 +172,7 @@ const searchLoanBooks = async (req, res) => {
 
 const renewLoanBooks = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const loan_id = req.params.id;
     const loan = await Loan.findById(loan_id);
     if (loan) {

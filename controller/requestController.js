@@ -2,11 +2,11 @@ import requestBook from "../model/requestBook.js";
 import Book from "../model/book.js";
 const allowedOrigins = [
   "https://librarymanagementweb.vercel.app",
-  // "http://localhost:5173",
+  "http://localhost:5173",
 ];
 export const addRequestBook = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { title, author, details } = req.body;
     console.log(title, author, details);
     const alreadyAdded = await Book.find({ title, author });
@@ -30,7 +30,7 @@ export const addRequestBook = async (req, res) => {
 
 export const addedRequestBook = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     // enum: ["Added", "Request"],
     const { id } = req.params;
     const data = await requestBook.findByIdAndUpdate(
@@ -50,7 +50,7 @@ export const addedRequestBook = async (req, res) => {
 
 export const deleteRequestBook = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { id } = req.params;
     const data = await requestBook.findByIdAndDelete(id);
     return res.status(200).json({ success: true, data });
@@ -61,7 +61,7 @@ export const deleteRequestBook = async (req, res) => {
 
 export const getRequestBook = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const data = await requestBook.find({});
     return res.status(200).json({ success: true, data });
   } catch (error) {
