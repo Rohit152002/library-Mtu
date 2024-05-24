@@ -20,7 +20,6 @@ import { checkOverDueLoans } from "./controller/loanController.js";
 //   "http://localhost:5173",
 // ];
 
-console.log(process.env);
 import mongodb from "./config/db.js";
 const app = express();
 
