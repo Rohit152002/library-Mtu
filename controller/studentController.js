@@ -53,7 +53,9 @@ const loginStudentController = async (req, res) => {
     const { email, password } = req.body;
     console.log(email, password);
     const student = await loginVerification(email, password);
-    const token=createToken(res, student._id);
+    console.log(student);
+    const token=createToken(student._id);
+    console.log(token);
     return res.status(200).json({ success: true, data: student,token:token });
   } catch (error) {
     return res.status(500).json({ success: false, err: error.message });
