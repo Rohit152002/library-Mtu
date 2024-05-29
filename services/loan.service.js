@@ -10,10 +10,8 @@ const addLoan = async (body, student) => {
       dateAdded = 30;
     }
     returnDate.setDate(returnDate.getDate() + dateAdded);
-    console.log(returnDate);
     if (body.loans.length === 1) {
       const loan = body.loans[0]; // Assuming there's only one loan document in body.loans
-      console.log(student.role);
 
       const data = await Loan.create({
         book_id: loan.book_id,

@@ -10,7 +10,6 @@ export const addPreBook = async (book, student) => {
       });
     } else {
       if (preBook.books.length >= 4) {
-        console.log(preBook.books.length);
         throw new Error("Pre Book Limit exceeded");
       }
       preBook.books.push({ book_id: book });
@@ -25,7 +24,6 @@ export const addPreBook = async (book, student) => {
 
 export const getPreBookByStudentId = async (id) => {
   try {
-    console.log("search for student ID", id);
     const preBook = await PreBook.findOne({ student_id: id });
     return preBook;
   } catch (error) {
@@ -35,12 +33,10 @@ export const getPreBookByStudentId = async (id) => {
 
 export const deletePreBookByStudentId = async (id, bookId) => {
   try {
-    console.log(bookId);
     const preBook = await PreBook.findOne({ student_id: id });
     const books = preBook.books.findIndex((book) => {
       return String(book.book_id) === String(bookId);
     });
-    console.log(books);
     preBook.books.splice(books, 1);
     await preBook.save();
     return preBook;

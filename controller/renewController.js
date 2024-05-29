@@ -1,13 +1,9 @@
 import RenewRequest from "../model/renewRequest.js";
 import Loan from "../model/loan.js";
 import mongoose from "mongoose";
-const allowedOrigins = [
-  "https://librarymanagementweb.vercel.app",
-  "http://localhost:5173",
-];
+
 export const AddRenewRequest = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { loan_id } = req.body;
     const student_id = req.student._id;
     const objectId = new mongoose.Types.ObjectId(loan_id);
@@ -17,29 +13,6 @@ export const AddRenewRequest = async (req, res) => {
         .status(404)
         .json({ success: false, message: "loan not found" });
     }
-
-    // const today = new Date();
-    // const todayDateOnly = new Date(
-    //   today.getFullYear(),
-    //   today.getMonth(),
-    //   today.getDate()
-    // );
-
-    // const submitDate = new Date(loanData.submitDate);
-    // const submitDateOnly = new Date(
-    //   submitDate.getFullYear(),
-    //   submitDate.getMonth(),
-    //   submitDate.getDate()
-    // );
-
-    // if (todayDateOnly.getTime() !== submitDateOnly.getTime()) {
-    //   return res
-    //     .status(400) // Status 400 is more appropriate for bad requests than 404
-    //     .json({ success: false, message: "can renew only on submit date" });
-    // }
-
-    // Proceed with the renewal process here
-
     const alreadyRenew = await RenewRequest.findOne({ loan_id });
     if (alreadyRenew) {
       return res
@@ -60,7 +33,6 @@ export const AddRenewRequest = async (req, res) => {
 
 export const getRenewRequestsStudent = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const data = await RenewRequest.find({
       student_id: req.student._id,
     }).populate("loan_id");
@@ -72,7 +44,6 @@ export const getRenewRequestsStudent = async (req, res) => {
 
 export const allRenewRequestStudent = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const data = await RenewRequest.find({ remark: "request" })
       .populate("loan_id")
       .populate("student_id");
@@ -84,7 +55,6 @@ export const allRenewRequestStudent = async (req, res) => {
 
 export const acceptRenewRequest = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { id } = req.params;
     const data = await RenewRequest.findByIdAndUpdate(
       id,
@@ -99,13 +69,14 @@ export const acceptRenewRequest = async (req, res) => {
     const loan = await Loan.findById(loan_id);
     if (loan) {
       const previousReturnDate = new Date();
+      previousReturnDate.setDate(previousReturnDate.getDate()+15)
       const newReturnDate = new Date(previousReturnDate);
       newReturnDate.setDate(newReturnDate.getDate() + 15);
       const dateUpdate = await Loan.findByIdAndUpdate(
         loan_id,
         {
           $set: {
-            returnDate: newReturnDate.toISOString(), // Convert back to ISO string
+            returnDate: newReturnDate.toISOString(), 
           },
         },
         { new: true }
@@ -122,7 +93,6 @@ export const acceptRenewRequest = async (req, res) => {
 
 export const rejectRenewRequest = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { id } = req.params;
     const data = await RenewRequest.findByIdAndUpdate(
       id,

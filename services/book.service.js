@@ -29,7 +29,6 @@ const getBookById = async (id) => {
 const updateBookById = async (id, body) => {
   try {
     const data = await Book.findByIdAndUpdate(id, body);
-    console.log("run update");
     return data;
   } catch (err) {
     return err;

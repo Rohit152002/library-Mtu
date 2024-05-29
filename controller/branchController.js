@@ -6,14 +6,8 @@ import {
   deleteBranch,
 } from "../services/branch.service.js";
 
-const allowedOrigins = [
-  "https://librarymanagementweb.vercel.app",
-  "http://localhost:5173",
-];
-
 export const addBranchController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { name, shortName } = req.body;
     if (!name || !shortName) {
       res.status(404);
@@ -28,7 +22,6 @@ export const addBranchController = async (req, res) => {
 
 export const getBranchesController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { id } = req.params;
     const data = await getBranches(id);
     return res.status(200).json({ success: true, data });
@@ -38,7 +31,6 @@ export const getBranchesController = async (req, res) => {
 };
 export const getBranchByIdController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { id } = req.params;
     const data = await getBranchById(id);
     return res.status(200).json({ success: true, data });
@@ -49,7 +41,6 @@ export const getBranchByIdController = async (req, res) => {
 
 export const updateBranchesController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { id } = req.params;
     const { name, shortName } = req.body;
     if (!name || !shortName) {
@@ -65,7 +56,6 @@ export const updateBranchesController = async (req, res) => {
 
 export const deleteBranchController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { id } = req.params;
     const data = await deleteBranch(id);
     return res.status(200).json({ success: true, data });

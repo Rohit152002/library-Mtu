@@ -1,9 +1,6 @@
 import nodemailer from "nodemailer";
 import otpGenerator from "otp-generator";
-// import dotenv from "dotenv";
 import Otp from "../model/otp.js";
-// dotenv.config();
-console.log(process.env.EMAIL_PASSWORD)
 
 const otp = otpGenerator.generate(4, {
   lowerCaseAlphabets: false,
@@ -34,8 +31,6 @@ const htmlContent = `
 
 const sendEmail = (email) => {
   return new Promise((resolve, reject) => { 
-    console.log(process.env.EMAIL_USERNAME)
-    console.log(process.env.EMAIL_PASSWORD)
     const mailOptions = {
       from: "laishramrohit15@gmail.com",
       to: email,

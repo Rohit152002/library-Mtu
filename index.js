@@ -15,10 +15,6 @@ import prebookRoute from "./router/pre_book.routes.js";
 import RenewRoute from "./router/renew.routes.js";
 import RequestRoute from "./router/request.routes.js";
 import { checkOverDueLoans } from "./controller/loanController.js";
-// const allowedOrigins = [
-//   "https://librarymanagementweb.vercel.app",
-//   "http://localhost:5173",
-// ];
 
 import mongodb from "./config/db.js";
 const app = express();
@@ -41,7 +37,7 @@ const app = express();
 //   next();
 // });
 
-app.use(cors())
+app.use(cors());
 // app.use(
 //   cors({
 //     origin: allowedOrigins,
@@ -79,4 +75,3 @@ mongodb();
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-

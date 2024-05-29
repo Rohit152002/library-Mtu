@@ -3,14 +3,13 @@ import Student from "../model/student.js";
 
 const authenticate = async (req, res, next) => {
   try {
-    const header=req.headers['authorization']
+    const header = req.headers["authorization"];
     const token = header.split(" ")[1];
-    console.log(token + "hello");
     if (token) {
       try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.student = await Student.findById(decoded.studentId).select(
-          "-password"
+          "-password",
         );
         next();
       } catch (error) {

@@ -10,13 +10,8 @@ import Otp from "../model/otp.js";
 import Student from "../model/student.js";
 import createToken from "../utils/createToken.js";
 import { sendEmail } from "../utils/mail.js";
-const allowedOrigins = [
-  "https://librarymanagementweb.vercel.app",
-  "http://localhost:5173",
-];
 const addStudentController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { fullName, registrationNo, email, password, branch } = req.body;
     if (!(fullName && registrationNo && email && password && branch)) {
       return res
@@ -34,7 +29,6 @@ const addStudentController = async (req, res) => {
 
 const verifyStudentController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const [data] = await getStudentById(req.student._id);
     const email = data.email;
     const { otp } = req.body;
@@ -56,7 +50,6 @@ const verifyStudentController = async (req, res) => {
 
 const loginStudentController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { email, password } = req.body;
     console.log(email, password);
     const student = await loginVerification(email, password);
@@ -69,7 +62,6 @@ const loginStudentController = async (req, res) => {
 
 const searchByRegistration = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const { registrationNo } = req.query;
     const student = await Student.findOne({ registrationNo });
     const [data, filterData] = await getStudentById(student._id);
@@ -83,7 +75,6 @@ const searchByRegistration = async (req, res) => {
 
 const getCurrentUserProfile = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     const [data, filterData] = await getStudentById(req.student._id);
     return res
       .status(200)
@@ -95,7 +86,6 @@ const getCurrentUserProfile = async (req, res) => {
 
 const getStudentController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     res.setHeader("Content-Type", "application/json");
     const student = await getStudent();
     return res.status(200).json({ success: true, student });
@@ -106,7 +96,6 @@ const getStudentController = async (req, res) => {
 
 const updateStudentController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     res.setHeader("Content-Type", "application/json");
     const { id } = req.params;
     const { fullName, registrationNo, semester, branch } = req.body;
@@ -124,7 +113,6 @@ const updateStudentController = async (req, res) => {
 
 const getStudentByIdController = async (req, res) => {
   try {
-    // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
     res.setHeader("Content-Type", "application/json");
     const { id } = req.params;
     const [data, filterData] = await getStudentById(id);
@@ -137,7 +125,6 @@ const getStudentByIdController = async (req, res) => {
 };
 
 const logoutCurrentUser = async (req, res) => {
-  // res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
   res.cookie("jwt", "", {
     httyOnly: true,
     expires: new Date(0),
