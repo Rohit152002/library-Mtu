@@ -64,24 +64,35 @@ const getBookByBranchId = async (req, res) => {
 };
 const searchBook = async (req, res) => {
   try {
+    const bookTitle = String(req.query.book_title || '');
+    const authorName = String(req.query.author_name || '');
+
+    // Log the regex patterns
+
     const books = await Book.find({
       title: {
-        $regex: req.query.book_title,
-        $options: "i",
+        $regex: bookTitle,
+        $options: 'i',
       },
       author: {
-        $regex: req.query.author_name,
-        $options: "i",
+        $regex: authorName,
+        $options: 'i',
       },
     });
+
+    // Log the search results
+
     if (!books || books.length === 0) {
-      return res.status(404).json({ success: false, message: "No book found" });
+      return res.status(404).json({ success: false, message: 'No book found' });
     }
+
     return res.status(200).json({ success: true, books });
   } catch (error) {
-    return res.status(500).json({ success: false, err: err.message });
+    console.error('Error during book search:', error);
+    return res.status(500).json({ success: false, err: error.message });
   }
 };
+
 const getBookByIdController = async (req, res) => {
   try {
     res.setHeader("Content-Type", "application/json");
