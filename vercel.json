@@ -11,5 +11,11 @@
             "src":"/(.*)",
             "dest":"/"
         }
+    ],
+    "crons": [
+        {
+            "path": "/api/loan/overdue",
+            "schedule": "0 0 * * *"
+        }
     ]
 }
