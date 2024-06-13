@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 const addLoanController = async (req, res) => {
   try {
     const loan = req.body;
-    if (req.body.length===0) {
+    if (req.body.length === 0) {
       return res
         .status(400)
         .json({ success: false, message: "Please fill all the fields" });
@@ -107,11 +107,12 @@ const getLoanById = async (req, res) => {
 };
 const checkOverDueLoans = async (req, res) => {
   try {
+    console.log("overdue");
     const overdueloans = await Loan.find({
       returnDate: {
         $lt: new Date(),
       },
-      remark: "Unsubmitted",
+      $or: [{ remark: "Unsubmitted" }, { remark: "Due Fine" }],
     });
 
     for (const loan of overdueloans) {
@@ -129,8 +130,11 @@ const checkOverDueLoans = async (req, res) => {
         },
       });
     }
+    // console.log(overdueloans);
+    // return res.status(200).json({ success: true, updated: "updated" });
   } catch (error) {
-    return res.status(500).json({ success: false, err: error.message });
+    console.log(error);
+    // return res.status(500).json({ success: false, err: error.message });
   }
 };
 

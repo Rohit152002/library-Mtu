@@ -35,10 +35,12 @@ app.use("/api/prebook", prebookRoute); //http:localhost:8080/api/prebook
 app.use("/api/renew", renewRoute); //http:localhost:8080/api/renew
 app.use("/api/request", requestRoute); //http:localhost:8080/api/request
 
+app.get("/cron", (req, res) => {
+  console.log("cron jobs");
+});
 cron.schedule("0 0 * * *", () => {
   checkOverDueLoans();
 });
-
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(`${__dirname}/uploads`)));
 

@@ -14,8 +14,8 @@
     ],
     "crons": [
         {
-            "path": "/api/loan/overdue",
-            "schedule": "0 0 * * *"
+            "path": "/cron",
+            "schedule": "*/10 * * * * *"
         }
     ]
 }
