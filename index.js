@@ -36,6 +36,7 @@ app.use("/api/renew", renewRoute); //http:localhost:8080/api/renew
 app.use("/api/request", requestRoute); //http:localhost:8080/api/request
 
 app.get("/cron", (req, res) => {
+  console.log("keitwre haibano ");
   console.log("cron jobs");
 });
 cron.schedule("0 0 * * *", () => {
