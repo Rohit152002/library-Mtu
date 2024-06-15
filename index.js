@@ -35,10 +35,7 @@ app.use("/api/prebook", prebookRoute); //http:localhost:8080/api/prebook
 app.use("/api/renew", renewRoute); //http:localhost:8080/api/renew
 app.use("/api/request", requestRoute); //http:localhost:8080/api/request
 
-app.get("/cron", (req, res) => {
-  console.log("keitwre haibano ");
-  console.log("cron jobs");
-});
+app.get("/cron", checkOverDueLoans);
 cron.schedule("0 0 * * *", () => {
   checkOverDueLoans();
 });

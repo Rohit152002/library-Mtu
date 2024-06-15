@@ -130,11 +130,11 @@ const checkOverDueLoans = async (req, res) => {
         },
       });
     }
-    // console.log(overdueloans);
-    // return res.status(200).json({ success: true, updated: "updated" });
+    console.log(overdueloans);
+    return res.status(200).json({ success: true, updated: "updated" });
   } catch (error) {
     console.log(error);
-    // return res.status(500).json({ success: false, err: error.message });
+    return res.status(500).json({ success: false, err: error.message });
   }
 };
 
